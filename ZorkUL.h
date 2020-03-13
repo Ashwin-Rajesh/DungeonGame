@@ -26,7 +26,7 @@ class ZorkUL
         void displayItems();
     public:
         string teleport();
-        Room* randomRoomSelection();
+        int randomRoomSelection();
         string goRoom(Command command);
         ZorkUL();
         void play();
