@@ -29,6 +29,6 @@ class Room
         Item* getItem();
         string displayItem();
         int isItemInRoom(string inString);
-        void removeItemFromRoom(int location);
+        //void removeItemFromRoom(int location);
 };
 #endif
