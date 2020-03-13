@@ -83,32 +83,32 @@ void ZorkUL::createWorld()
 
 
     roomList.empty();
-    roomList.push_back(*a);
-    roomList.push_back(*b);
-    roomList.push_back(*c);
-    roomList.push_back(*d);
-    roomList.push_back(*e);
-    roomList.push_back(*f);
-    roomList.push_back(*g);
-    roomList.push_back(*h);
-    roomList.push_back(*i);
-    roomList.push_back(*j);
-    roomList.push_back(*k);
-    roomList.push_back(*l);
-    roomList.push_back(*m);
-    roomList.push_back(*n);
-    roomList.push_back(*o);
-    roomList.push_back(*p);
-    roomList.push_back(*q);
-    roomList.push_back(*r);
-    roomList.push_back(*s);
-    roomList.push_back(*t);
-    roomList.push_back(*u);
-    roomList.push_back(*v);
-    roomList.push_back(*w);
-    roomList.push_back(*x);
-    roomList.push_back(*y);
-    roomList.push_back(*z);
+    roomList.push_back(a);
+    roomList.push_back(b);
+    roomList.push_back(c);
+    roomList.push_back(d);
+    roomList.push_back(e);
+    roomList.push_back(f);
+    roomList.push_back(g);
+    roomList.push_back(h);
+    roomList.push_back(i);
+    roomList.push_back(j);
+    roomList.push_back(k);
+    roomList.push_back(l);
+    roomList.push_back(m);
+    roomList.push_back(n);
+    roomList.push_back(o);
+    roomList.push_back(p);
+    roomList.push_back(q);
+    roomList.push_back(r);
+    roomList.push_back(s);
+    roomList.push_back(t);
+    roomList.push_back(u);
+    roomList.push_back(v);
+    roomList.push_back(w);
+    roomList.push_back(x);
+    roomList.push_back(y);
+    roomList.push_back(z);
 
     currentRoom = a;
     spawnRoom = a;
@@ -124,20 +124,19 @@ void ZorkUL::createWorld()
     keyList.push_back(key2);
     keyList.push_back(key3);
 
-    //vector<Room> keysInRoom;
-    //keysInRoom.empty();
     bool temp = true;
-    //int check = 0;
+    int check = 0;
     for(int i=0; i<3; i++)
     {
-        //temp = true;
         while(temp)
         {
-            test = &roomList.at(randomRoomSelection());
+            check = randomRoomSelection();
+            test = roomList.at(check);
             if(test != spawnRoom && test->numberOfItems() == 0)
             {
-                roomList.at(randomRoomSelection()).addItem(&keyList.at(i));
-                cout<<roomList.at(randomRoomSelection()).longDescription()<<endl;
+                roomList.at(check)->addItem(&keyList.at(i));
+                cout<<roomList.at(check)->longDescription()<<endl;
+                cout<<roomList.at(check)->numberOfItems()<<endl;
                 temp = false;
             }
         }
@@ -278,7 +277,7 @@ string ZorkUL::teleport()
     Room* teleportRoom;
     while(temp)
     {
-        teleportRoom = &roomList.at(randomRoomSelection());
+        teleportRoom = roomList.at(randomRoomSelection());
         if(teleportRoom != currentRoom && teleportRoom != exitRoom)
         {
             temp = false;
@@ -294,84 +293,7 @@ int ZorkUL::randomRoomSelection()
     //Room* teleportRoom;
     srand (time(NULL));
     r = rand() % 25;
-    switch(r)
-    {
-        case 0:
-        return(0);
-        break;
-        case 1:
-        return(1);
-        break;
-        case 2:
-        return(2);
-        break;
-        case 3:
-        return(3);
-        break;
-        case 4:
-        return(4);
-        break;
-        case 5:
-        return(5);
-        break;
-        case 6:
-        return(6);
-        break;
-        case 7:
-        return(7);
-        break;
-        case 8:
-        return(8);
-        break;
-        case 9:
-        return(9);
-        break;
-        case 10:
-        return(10);
-        break;
-        case 11:
-        return(11);
-        break;
-        case 12:
-        return(12);
-        break;
-        case 13:
-        return(13);
-        break;
-        case 14:
-        return(14);
-        break;
-        case 15:
-        return(15);
-        break;
-        case 16:
-        return(16);
-        break;
-        case 17:
-        return(17);
-        break;
-        case 18:
-        return(18);
-        break;
-        case 19:
-        return(19);
-        break;
-        case 20:
-        return(20);
-        break;
-        case 21:
-        return(21);
-        break;
-        case 22:
-        return(22);
-        break;
-        case 23:
-        return(23);
-        break;
-        case 24:
-        return(24);
-        break;
-    }
+    return r;
 }
 
 string ZorkUL::goRoom(Command command)
