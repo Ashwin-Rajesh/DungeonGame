@@ -127,17 +127,17 @@ void ZorkUL::createWorld()
     //vector<Room> keysInRoom;
     //keysInRoom.empty();
     bool temp = true;
+    //int check = 0;
     for(int i=0; i<3; i++)
     {
         //temp = true;
         while(temp)
         {
-            test = randomRoomSelection();
+            test = &roomList.at(randomRoomSelection());
             if(test != spawnRoom && test->numberOfItems() == 0)
             {
-
-                test->addItem(&keyList.at(i));
-                cout<<test->longDescription()<<endl;
+                roomList.at(randomRoomSelection()).addItem(&keyList.at(i));
+                cout<<roomList.at(randomRoomSelection()).longDescription()<<endl;
                 temp = false;
             }
         }
@@ -278,7 +278,7 @@ string ZorkUL::teleport()
     Room* teleportRoom;
     while(temp)
     {
-        teleportRoom = randomRoomSelection();
+        teleportRoom = &roomList.at(randomRoomSelection());
         if(teleportRoom != currentRoom && teleportRoom != exitRoom)
         {
             temp = false;
@@ -288,92 +288,90 @@ string ZorkUL::teleport()
     return("teleporting...\n" + currentRoom->longDescription() + "\n");
 }
 
-Room* ZorkUL::randomRoomSelection()
+int ZorkUL::randomRoomSelection()
 {
     int r = 0;
-    Room* teleportRoom;
+    //Room* teleportRoom;
     srand (time(NULL));
     r = rand() % 25;
     switch(r)
     {
         case 0:
-        teleportRoom = &roomList.at(0);
+        return(0);
         break;
         case 1:
-        teleportRoom = &roomList.at(1);
+        return(1);
         break;
         case 2:
-        teleportRoom = &roomList.at(2);
+        return(2);
         break;
         case 3:
-        teleportRoom = &roomList.at(3);
+        return(3);
         break;
         case 4:
-        teleportRoom = &roomList.at(4);
+        return(4);
         break;
         case 5:
-        teleportRoom = &roomList.at(5);
+        return(5);
         break;
         case 6:
-        teleportRoom = &roomList.at(6);
+        return(6);
         break;
         case 7:
-        teleportRoom = &roomList.at(7);
+        return(7);
         break;
         case 8:
-        teleportRoom = &roomList.at(8);
+        return(8);
         break;
         case 9:
-        teleportRoom = &roomList.at(9);
+        return(9);
         break;
         case 10:
-        teleportRoom = &roomList.at(10);
+        return(10);
         break;
         case 11:
-        teleportRoom = &roomList.at(11);
+        return(11);
         break;
         case 12:
-        teleportRoom = &roomList.at(12);
+        return(12);
         break;
         case 13:
-        teleportRoom = &roomList.at(13);
+        return(13);
         break;
         case 14:
-        teleportRoom = &roomList.at(14);
+        return(14);
         break;
         case 15:
-        teleportRoom = &roomList.at(15);
+        return(15);
         break;
         case 16:
-        teleportRoom = &roomList.at(16);
+        return(16);
         break;
         case 17:
-        teleportRoom = &roomList.at(17);
+        return(17);
         break;
         case 18:
-        teleportRoom = &roomList.at(18);
+        return(18);
         break;
         case 19:
-        teleportRoom = &roomList.at(19);
+        return(19);
         break;
         case 20:
-        teleportRoom = &roomList.at(20);
+        return(20);
         break;
         case 21:
-        teleportRoom = &roomList.at(21);
+        return(21);
         break;
         case 22:
-        teleportRoom = &roomList.at(22);
+        return(22);
         break;
         case 23:
-        teleportRoom = &roomList.at(23);
+        return(23);
         break;
         case 24:
-        teleportRoom = &roomList.at(24);
+        return(24);
         break;
     }
-    return teleportRoom;
-    //return("teleporting...\n" + currentRoom->longDescription() + "\n");
 }
 
 string ZorkUL::goRoom(Command command)
