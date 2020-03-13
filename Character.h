@@ -17,7 +17,8 @@ class Character
         //void addItem(Item i);
         void addItem(Item* item);
         void addItem(string Item);
-        Character(string description);
+        //Character(string description);
+        void setDescription(string desc);
         string shortDescription();
         string longDescription();
 };

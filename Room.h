@@ -12,10 +12,10 @@ class Room
 {
     private:
         string description;
+        bool unlocked = true;
         map<string, Room*> exits;
         string exitString();
         vector <Item> itemsInRoom;
-        bool unlocked = true;
     public:
         int numberOfItems();
         Room(string description);
@@ -26,6 +26,7 @@ class Room
         string longDescription();
         Room* nextRoom(string direction);
         void addItem(Item *inItem);
+        Item* getItem();
         string displayItem();
         int isItemInRoom(string inString);
         void removeItemFromRoom(int location);
