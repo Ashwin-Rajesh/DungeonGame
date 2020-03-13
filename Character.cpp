@@ -2,7 +2,7 @@
 
 //Character::Character(string description)
 //{
-//	this->description = description;
+//    this->description = description;
 //}
 void Character::setDescription(string desc)
 {
@@ -22,6 +22,9 @@ string Character::longDescription()
 //    ret += "\t"+ (*i).getLongDescription() + "\n";
 //    return ret;
 }
-
+int Character::inHandSize()
+{
+    return inHand.size();
+}
 
 
