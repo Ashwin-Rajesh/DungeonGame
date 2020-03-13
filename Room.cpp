@@ -22,6 +22,10 @@ void Room::setStatus(bool b)
 {
     this->unlocked = b;
 }
+bool Room::getStatus()
+{
+    return unlocked;
+}
 string Room::shortDescription()
 {
 	return description;

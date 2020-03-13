@@ -1,6 +1,7 @@
 #ifndef ZORKUL_H_
 #define ZORKUL_H_
 
+#include "Character.h"
 #include "Command.h"
 #include "Parser.h"
 #include "Room.h"
@@ -30,6 +31,6 @@ class ZorkUL
         string goRoom(Command command);
         ZorkUL();
         void play();
-        string go(string direction);
+        //string go(string direction);
 };
 #endif /*ZORKUL_H_*/

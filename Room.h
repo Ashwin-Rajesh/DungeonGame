@@ -21,6 +21,7 @@ class Room
         Room(string description);
         void setExits(Room *north, Room *east, Room *south, Room *west);
         void setStatus(bool b);
+        bool getStatus();
         string shortDescription();
         string longDescription();
         Room* nextRoom(string direction);
