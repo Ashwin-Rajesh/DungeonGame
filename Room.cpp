@@ -110,3 +110,7 @@ int Room::isItemInRoom(string inString)
     }
     return -1;
 }
+Item* Room::getItem()
+{
+    return &itemsInRoom.at(0);
+}
