@@ -81,32 +81,32 @@ void ZorkUL::createWorld()
     y->setExits(t, z, NULL, x);
 
     roomList.empty();
-    roomList.push_back(*a);
-    roomList.push_back(*b);
-    roomList.push_back(*c);
-    roomList.push_back(*d);
-    roomList.push_back(*e);
-    roomList.push_back(*f);
-    roomList.push_back(*g);
-    roomList.push_back(*h);
-    roomList.push_back(*i);
-    roomList.push_back(*j);
-    roomList.push_back(*k);
-    roomList.push_back(*l);
-    roomList.push_back(*m);
-    roomList.push_back(*n);
-    roomList.push_back(*o);
-    roomList.push_back(*p);
-    roomList.push_back(*q);
-    roomList.push_back(*r);
-    roomList.push_back(*s);
-    roomList.push_back(*t);
-    roomList.push_back(*u);
-    roomList.push_back(*v);
-    roomList.push_back(*w);
-    roomList.push_back(*x);
-    roomList.push_back(*y);
-    roomList.push_back(*z);
+    roomList.push_back(a);
+    roomList.push_back(b);
+    roomList.push_back(c);
+    roomList.push_back(d);
+    roomList.push_back(e);
+    roomList.push_back(f);
+    roomList.push_back(g);
+    roomList.push_back(h);
+    roomList.push_back(i);
+    roomList.push_back(j);
+    roomList.push_back(k);
+    roomList.push_back(l);
+    roomList.push_back(m);
+    roomList.push_back(n);
+    roomList.push_back(o);
+    roomList.push_back(p);
+    roomList.push_back(q);
+    roomList.push_back(r);
+    roomList.push_back(s);
+    roomList.push_back(t);
+    roomList.push_back(u);
+    roomList.push_back(v);
+    roomList.push_back(w);
+    roomList.push_back(x);
+    roomList.push_back(y);
+    roomList.push_back(z);
 
     currentRoom = a;
     spawnRoom = a;
@@ -132,11 +132,11 @@ void ZorkUL::createWorld()
         while (temp)
         {
             int a = randomRoomSelection();
-            test = &roomList.at(a);
+            test = roomList.at(a);
             if (test != spawnRoom && test->numberOfItems() == 0)
             {
-                roomList.at(a).addItem(&keyList.at(i));
-                cout << roomList.at(a).longDescription() << endl;
+                roomList.at(a)->addItem(&keyList.at(i));
+                cout << roomList.at(a)->longDescription() << endl;
                 temp = false;
             }
         }
@@ -294,7 +294,7 @@ string ZorkUL::teleport()
     Room *teleportRoom;
     while (temp)
     {
-        teleportRoom = &roomList.at(randomRoomSelection());
+        teleportRoom = roomList.at(randomRoomSelection());
         if (teleportRoom != currentRoom && teleportRoom != exitRoom)
         {
             temp = false;
