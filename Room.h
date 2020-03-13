@@ -15,6 +15,7 @@ class Room
         map<string, Room*> exits;
         string exitString();
         vector <Item> itemsInRoom;
+        bool unlocked = true;
     public:
         int numberOfItems();
         Room(string description);
