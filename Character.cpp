@@ -1,13 +1,13 @@
 #include "Character.h"
 
-Character::Character(string description)
-{
-	this->description = description;
-}
-//void Character::addItem(Item &item)
+//Character::Character(string description)
 //{
-//    itemsInCharacter.push_back(item);
+//	this->description = description;
 //}
+void Character::setDescription(string desc)
+{
+   description = desc;
+}
 void Character::addItem(Item *item)
 {
     inHand.push_back(item);
