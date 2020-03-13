@@ -1,9 +1,9 @@
-#include <iostream>
-#include <time.h>
-#include <stdlib.h>
-#include <algorithm>
+#include<iostream>
+#include<time.h>
+#include<stdlib.h>
+#include<algorithm>
 using namespace std;
-#include "ZorkUL.h"
+#include"ZorkUL.h"
 
 int main()
 {
@@ -14,6 +14,11 @@ int main()
 
 ZorkUL::ZorkUL()
 {
+    cout<<"***Start***"<<endl;
+    cout<<"Aim of the Game: Get to Room:z"<<endl;
+    cout<<"Please know that you have to find 3 keys to unlock Room:z"<<endl;
+    cout<<"The keys could be found anywhere in these rooms"<<endl;
+    cout<<"But you might want to mind the enemies roaming around"<<endl;
     createWorld();
 }
 
@@ -26,15 +31,15 @@ void ZorkUL::createWorld()
     Room *p, *q, *r, *s, *t;
     Room *u, *v, *w, *x, *y, *z;
 
-    a = new Room("a");
-    b = new Room("b");
-    c = new Room("c");
-    d = new Room("d");
-    e = new Room("e");
-    f = new Room("f");
-    g = new Room("g");
-    h = new Room("h");
-    i = new Room("i");
+	a = new Room("a");
+	b = new Room("b");
+	c = new Room("c");
+	d = new Room("d");
+	e = new Room("e");
+	f = new Room("f");
+	g = new Room("g");
+	h = new Room("h");
+	i = new Room("i");
     j = new Room("j");
     k = new Room("k");
     l = new Room("l");
@@ -120,9 +125,9 @@ void ZorkUL::createWorld()
     //ITEMS
     vector<Item> keyList;
     keyList.empty();
-    Item key1("Key1");
-    Item key2("Key2");
-    Item key3("Key3");
+    Item key1("key1");
+    Item key2("key2");
+    Item key3("key3");
     keyList.push_back(key1);
     keyList.push_back(key2);
     keyList.push_back(key3);
@@ -150,37 +155,32 @@ void ZorkUL::createWorld()
  */
 void ZorkUL::play()
 {
-    printWelcome();
+    int health = 5;
 
-    bool finished = false;
+    cout<<"info for help"<<endl;
+    cout<<endl;
+    cout<<currentRoom->longDescription()<<endl;
+
+	bool finished = false;
     while (!finished)
     {
-        // Create pointer to command and give it a command.
-        Command *command = parser.getCommand();
-        // Pass dereferenced command and check for end of game.
-        finished = processCommand(*command);
-        // Free the memory allocated by "parser.getCommand()"
-        //   with ("return new Command(...)")
-        delete command;
-    }
-    cout << endl;
-    cout << "end" << endl;
-}
-
-void ZorkUL::printWelcome()
-{
-    cout << "*Start*"<< endl;
-    cout << "Aim of the Game: "<<endl;
-	cout << "info for help"<< endl;
-	cout << endl;
-	cout << currentRoom->longDescription() << endl;
+		// Create pointer to command and give it a command.
+		Command* command = parser.getCommand();
+		// Pass dereferenced command and check for end of game.
+		finished = processCommand(*command);
+		// Free the memory allocated by "parser.getCommand()"
+		//   with ("return new Command(...)")
+		delete command;
+	}
+    cout<<endl;
+    cout<<"end"<<endl;
 }
 
 bool ZorkUL::processCommand(Command command)
 {
     if (command.isUnknown())
     {
-		cout << "invalid input"<< endl;
+        cout<<"Invalid Input"<<endl;
 		return false;
     }
     string commandWord = command.getCommandWord();
@@ -190,21 +190,21 @@ bool ZorkUL::processCommand(Command command)
 		printHelp();
     }
 
-    else if (commandWord.compare("map") == 0)
+	else if (commandWord.compare("map") == 0)
     {
-        cout << "[a] --- [b] --- [c] --- [d] --- [e]" << endl;
-        cout << " |               |               | " << endl;
-        cout << " |               |               | " << endl;
-        cout << "[f]     [g] --- [h] --- [i]     [j]" << endl;
-        cout << " |       |       |       |       | " << endl;
-        cout << " |       |       |       |       | " << endl;
-        cout << "[k] --- [l] --- [m] --- [n] --- [o]" << endl;
-        cout << " |       |       |       |       | " << endl;
-        cout << " |       |       |       |       | " << endl;
-        cout << "[p]     [q] --- [r] --- [s]     [t]" << endl;
-        cout << " |               |               | " << endl;
-        cout << " |               |               | " << endl;
-        cout << "[u] --- [v] --- [w] --- [x] --- [y] --- [z]" << endl;
+        cout<<"[a] --- [b] --- [c] --- [d] --- [e]"<<endl;
+        cout<<" |               |               | "<<endl;
+        cout<<" |               |               | "<<endl;
+        cout<<"[f]     [g] --- [h] --- [i]     [j]"<<endl;
+        cout<<" |       |       |       |       | "<<endl;
+        cout<<" |       |       |       |       | "<<endl;
+        cout<<"[k] --- [l] --- [m] --- [n] --- [o]"<<endl;
+        cout<<" |       |       |       |       | "<<endl;
+        cout<<" |       |       |       |       | "<<endl;
+        cout<<"[p]     [q] --- [r] --- [s]     [t]"<<endl;
+        cout<<" |               |               | "<<endl;
+        cout<<" |               |               | "<<endl;
+        cout<<"[u] --- [v] --- [w] --- [x] --- [y] --- [z]"<<endl;
     }
 
 	else if (commandWord.compare("go") == 0)
@@ -212,28 +212,34 @@ bool ZorkUL::processCommand(Command command)
 		goRoom(command);
     }
 
+    else if(commandWord.compare("inventory") == 0)
+    {
+        cout<<"You need "<<3-tom.inHandSize()<<" more key/s"<<endl;
+    }
+
     else if (commandWord.compare("take") == 0)
     {
         if (!command.hasSecondWord())
         {
-            cout << "incomplete input" << endl;
+            cout<<"Incomplete Input"<<endl;
         }
         else if (command.hasSecondWord())
         {
-            cout << "you're trying to take " + command.getSecondWord() << endl;
-            int location = currentRoom->isItemInRoom(command.getSecondWord());
-            if (location < 0)
-                cout << "item is not in room" << endl;
+            cout<<"Picking up" + command.getSecondWord()<<endl;
+            if (currentRoom->isItemInRoom(command.getSecondWord()) < 0)
+                cout<<"Item is not in room"<<endl;
             else
-                cout << "item is in room" << endl;
-            tom.addItem(currentRoom->getItem());
-            cout << "index number " << + location << endl;
-            cout << endl;
-            cout << currentRoom->longDescription() << endl;
+            {
+                cout<<"Item is in room"<<endl;
+                tom.addItem(currentRoom->getItem());
+            }
+            cout<<"Index Number: "<<currentRoom->isItemInRoom(command.getSecondWord())<<endl;
+            cout<<endl;
+            cout<<currentRoom->longDescription()<<endl;
         }
     }
 
-    else if (commandWord.compare("unlock") == 0)
+    else if(commandWord.compare("unlock") == 0)
     {
         if(currentRoom != roomList.at(24))
         {
@@ -241,12 +247,15 @@ bool ZorkUL::processCommand(Command command)
         }
         else if(currentRoom == roomList.at(24))
         {
-            exitRoom->setStatus(true);
-            cout<<exitRoom->getStatus()<<endl;
-        }
-        else /*if()*/
-        {
-            cout<<"You need X key/s to proceed"<<endl;
+            if(tom.inHandSize() == 3)
+            {
+                exitRoom->setStatus(true);
+                //cout<<exitRoom->getStatus()<<endl;
+            }
+            else
+            {
+                cout<<"You need "<<3-tom.inHandSize()<<" more key/s"<<endl;
+            }
         }
     }
 
@@ -266,31 +275,31 @@ bool ZorkUL::processCommand(Command command)
 /** COMMANDS **/
 void ZorkUL::printHelp()
 {
-    cout << "valid inputs are; " << endl;
-    parser.showCommands();
-}
+	cout << "valid inputs are; " << endl;
+	parser.showCommands();
 
+}
 string ZorkUL::teleport()
 {
     bool temp = true;
-    Room *teleportRoom;
-    while (temp)
+    Room* teleportRoom;
+    while(temp)
     {
         teleportRoom = roomList.at(randomRoomSelection());
         if(teleportRoom != currentRoom && teleportRoom != exitRoom)
         {
             temp = false;
-            currentRoom = teleportRoom;
+            currentRoom=teleportRoom;
         }
     }
-    return ("teleporting...\n" + currentRoom->longDescription() + "\n");
+    return("teleporting...\n" + currentRoom->longDescription() + "\n");
 }
 
 int ZorkUL::randomRoomSelection()
 {
     int r = 0;
     //Room* teleportRoom;
-    srand(time(NULL));
+    srand (time(NULL));
     r = rand() % 25;
     return r;
 }
@@ -299,23 +308,23 @@ string ZorkUL::goRoom(Command command)
 {
     if (!command.hasSecondWord())
     {
-        cout << "incomplete input" << endl;
+		cout << "incomplete input"<< endl;
         return "incomplete input";
-    }
+	}
 
-    string direction = command.getSecondWord();
+	string direction = command.getSecondWord();
 
-    // Try to leave current room.
-    Room *nextRoom = currentRoom->nextRoom(direction);
+	// Try to leave current room.
+	Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
     {
-        cout << "underdefined input" << endl;
-        return ("underdefined input");
+		cout << "underdefined input"<< endl;
+        return("underdefined input");
     }
     else
     {
-        if (nextRoom != exitRoom)
+        if(nextRoom != exitRoom)
         {
             currentRoom = nextRoom;
             cout << currentRoom->longDescription() << endl;
@@ -331,7 +340,7 @@ string ZorkUL::goRoom(Command command)
             }
             else
             {
-                cout<<"Try Again"<<endl;
+                cout<<"Use the keys to unlock the room"<<endl;
             }
             //check if the player has 3 keys
         }
