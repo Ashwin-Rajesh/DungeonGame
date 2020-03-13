@@ -232,6 +232,7 @@ bool ZorkUL::processCommand(Command command)
             {
                 cout<<"Item is in room"<<endl;
                 tom.addItem(currentRoom->getItem());
+                currentRoom->removeItem();
             }
             cout<<"Index Number: "<<currentRoom->isItemInRoom(command.getSecondWord())<<endl;
             cout<<endl;

@@ -27,6 +27,7 @@ class Room
         Room* nextRoom(string direction);
         void addItem(Item *inItem);
         Item* getItem();
+        void removeItem();
         string displayItem();
         int isItemInRoom(string inString);
         //void removeItemFromRoom(int location);

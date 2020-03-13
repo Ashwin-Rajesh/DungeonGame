@@ -9,4 +9,3 @@ string Item::getShortDescription()
 {
     return description;
 }
-

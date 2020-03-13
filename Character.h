@@ -12,7 +12,7 @@ class Character
     private:
         string description;
         //vector < string > itemsInCharacter;
-        vector <Item *> inHand;
+        vector<Item*> inHand;
     public:
         //void addItem(Item i);
         int inHandSize();

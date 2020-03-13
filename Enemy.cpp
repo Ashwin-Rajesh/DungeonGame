@@ -21,7 +21,7 @@ void Enemy::move()
     {
         // Move forward in path
         if(currentIndex == path.size() - 1)  {currentIndex = 0;                      }
-        else                                {currentIndex++;                        }
+        else                                 {currentIndex++;                        }
     }
     else
     {

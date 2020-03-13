@@ -7,6 +7,7 @@
 void Character::setDescription(string desc)
 {
    description = desc;
+   inHand.clear();
 }
 void Character::addItem(Item *item)
 {

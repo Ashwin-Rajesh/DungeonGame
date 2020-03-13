@@ -102,7 +102,6 @@ int Room::isItemInRoom(string inString)
             int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
             if (tempFlag == 0)
             {
-                itemsInRoom.erase(itemsInRoom.begin()+x);
                 return x;
             }
             x++;
@@ -113,4 +112,8 @@ int Room::isItemInRoom(string inString)
 Item* Room::getItem()
 {
     return &itemsInRoom.at(0);
+}
+void Room::removeItem()
+{
+    itemsInRoom.erase(itemsInRoom.begin());
 }
