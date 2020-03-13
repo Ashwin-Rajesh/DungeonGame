@@ -21,7 +21,7 @@ class ZorkUL
         Character tom;
         vector<Room*> roomList;
         void createWorld();
-        void printWelcome();
+        //void printWelcome();
         bool processCommand(Command command);
         void printHelp();
         void createItems();
