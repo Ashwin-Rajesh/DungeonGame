@@ -15,7 +15,7 @@ class Character
         vector <Item *> inHand;
     public:
         //void addItem(Item i);
-        void addItem(Item*);
+        void addItem(Item* item);
         void addItem(string Item);
         Character(string description);
         string shortDescription();

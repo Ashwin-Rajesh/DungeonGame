@@ -268,6 +268,7 @@ void ZorkUL::printHelp()
     cout << "valid inputs are; " << endl;
     parser.showCommands();
 }
+
 string ZorkUL::teleport()
 {
     bool temp = true;
