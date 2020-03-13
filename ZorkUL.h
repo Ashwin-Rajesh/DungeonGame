@@ -18,6 +18,7 @@ class ZorkUL
         Room* currentRoom;
         Room* spawnRoom;
         Room* exitRoom;
+        Character tom;
         vector<Room*> roomList;
         void createWorld();
         void printWelcome();
