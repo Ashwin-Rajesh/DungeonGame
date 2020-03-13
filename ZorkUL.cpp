@@ -114,7 +114,7 @@ void ZorkUL::createWorld()
     exitRoom = z;
 
     //CHARACTER
-    Character tom("Agent Tom reporting...");
+    tom.setDescription("Agent Tom Reporting...");
     //ENEMIES
 
     //ITEMS
@@ -206,7 +206,7 @@ bool ZorkUL::processCommand(Command command)
         cout << " |               |               | " << endl;
         cout << "[u] --- [v] --- [w] --- [x] --- [y] --- [z]" << endl;
     }
-    
+
 	else if (commandWord.compare("go") == 0)
     {
 		goRoom(command);
@@ -226,6 +226,7 @@ bool ZorkUL::processCommand(Command command)
                 cout << "item is not in room" << endl;
             else
                 cout << "item is in room" << endl;
+                tom.addItem(currentRoom->getItem());
                 cout << "index number " << + location << endl;
                 cout << endl;
                 cout << currentRoom->longDescription() << endl;
