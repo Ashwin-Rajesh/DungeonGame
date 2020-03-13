@@ -19,6 +19,7 @@ class Room
         int numberOfItems();
         Room(string description);
         void setExits(Room *north, Room *east, Room *south, Room *west);
+        void setStatus(bool b);
         string shortDescription();
         string longDescription();
         Room* nextRoom(string direction);
