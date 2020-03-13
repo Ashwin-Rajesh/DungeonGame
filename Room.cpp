@@ -18,7 +18,10 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west)
 	if (west != NULL)
 		exits["west"] = west;
 }
-
+void Room::setStatus(bool b)
+{
+    this->unlocked = b;
+}
 string Room::shortDescription()
 {
 	return description;
