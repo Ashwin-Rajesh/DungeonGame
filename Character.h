@@ -1,5 +1,6 @@
 #ifndef CHARACTER_H_
-#define CHARACTER_H
+#define CHARACTER_H_
+//#include "ZorkUL.h"
 #include "item.h"
 #include <string>
 using namespace std;
@@ -14,6 +15,7 @@ class Character
         vector <Item *> inHand;
     public:
         //void addItem(Item i);
+        int inHandSize();
         void addItem(Item* item);
         void addItem(string Item);
         //Character(string description);
