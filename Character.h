@@ -1,6 +1,5 @@
 #ifndef CHARACTER_H_
-#define CHARACTER_H_
-#include "ZorkUL.h"
+#define CHARACTER_H
 #include "item.h"
 #include <string>
 using namespace std;
