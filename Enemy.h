@@ -12,16 +12,16 @@ using std::vector;
 
 class Enemy
 {
-private:
-    string  description;
-    int currentIndex;
-    vector<string> path;
+    private:
+        string description;
+        int currentIndex;
+        vector<string> path;
 
-public:
-    Enemy(string short_desc);
-    string  getLocation();
-    void    move();
-    void    addPath(string room);
-    string  shortDescription();
+    public:
+        Enemy(string short_desc);
+        string getLocation();
+        void move();
+        void addPath(string room);
+        string shortDescription();
 };
 #endif
