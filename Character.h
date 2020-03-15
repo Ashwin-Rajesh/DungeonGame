@@ -1,26 +1,24 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
-//#include "ZorkUL.h"
+
 #include "item.h"
 #include <string>
-using namespace std;
 #include <vector>
+
+using namespace std;
 using std::vector;
 
 class Character
 {
     private:
         string description;
-        //vector < string > itemsInCharacter;
-        vector<Item*> inHand;
+        vector <Item> inHand;
     public:
-        //void addItem(Item i);
+        void useItem();
         int inHandSize();
+        void showInHand();
         void addItem(Item* item);
-        void addItem(string Item);
-        //Character(string description);
         void setDescription(string desc);
-        string shortDescription();
-        string longDescription();
+        string getDescription();
 };
 #endif /*CHARACTER_H_*/
