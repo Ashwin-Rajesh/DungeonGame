@@ -1,31 +1,35 @@
 #include "Character.h"
 
-//Character::Character(string description)
-//{
-//    this->description = description;
-//}
 void Character::setDescription(string desc)
 {
    description = desc;
-   inHand.clear();
 }
+
 void Character::addItem(Item *item)
 {
-    inHand.push_back(item);
-    //itemsInCharacter.push_back(*item);
-    //delete item;
+    inHand.push_back(*item);
 }
-string Character::longDescription()
+
+string Character::getDescription()
 {
-//    string ret = this->description;
-//    ret += "\n Item list:\n";
-//    for (vector<Item>::iterator i = itemsInCharacter.begin(); i != itemsInCharacter.end(); i++)
-//    ret += "\t"+ (*i).getLongDescription() + "\n";
-//    return ret;
+    string str = description + "\n";
+    return str;
 }
+
 int Character::inHandSize()
 {
     return inHand.size();
 }
 
+void Character::useItem()
+{
+    inHand.empty();
+}
 
+void Character::showInHand()
+{
+    for(unsigned int i=0; i<inHand.size(); i++)
+    {
+        cout<<inHand.at(i).getShortDescription()<<"\t";
+    }
+}
