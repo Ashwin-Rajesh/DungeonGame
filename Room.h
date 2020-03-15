@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
+
 using namespace std;
 using std::vector;
 
@@ -17,7 +18,7 @@ class Room
         string exitString();
         vector <Item> itemsInRoom;
     public:
-        int numberOfItems();
+        int getNumberOfItems();
         Room(string description);
         void setExits(Room *north, Room *east, Room *south, Room *west);
         void setStatus(bool b);
@@ -27,9 +28,8 @@ class Room
         Room* nextRoom(string direction);
         void addItem(Item *inItem);
         Item* getItem();
-        void removeItem();
         string displayItem();
-        int isItemInRoom(string inString);
-        //void removeItemFromRoom(int location);
+        bool isItemInRoom(string inString);
+        void removeItem();
 };
 #endif
