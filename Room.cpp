@@ -113,5 +113,5 @@ Item* Room::getItem()
 
 void Room::removeItem()
 {
-    itemsInRoom.empty();
+    itemsInRoom.pop_back();
 }
