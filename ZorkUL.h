@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class ZorkUL
@@ -21,7 +22,6 @@ class ZorkUL
         Character tom;
         vector<Room*> roomList;
         void createWorld();
-        //void printWelcome();
         bool processCommand(Command command);
         void printHelp();
         void createItems();
@@ -30,8 +30,8 @@ class ZorkUL
         string teleport();
         int randomRoomSelection();
         string goRoom(Command command);
+        void go(string direction);
         ZorkUL();
-        void play();
-        //string go(string direction);
+        void play();      
 };
 #endif /*ZORKUL_H_*/
