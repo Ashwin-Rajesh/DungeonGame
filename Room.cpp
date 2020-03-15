@@ -1,31 +1,33 @@
 #include "Room.h"
 #include "Command.h"
 
-
 Room::Room(string description)
 {
-	this->description = description;
+    this->description = description;
 }
 
-void Room::setExits(Room *north, Room *east, Room *south, Room *west)
+void Room::setExits(Room *up, Room *right, Room *down, Room *left)
 {
-	if (north != NULL)
-		exits["north"] = north;
-	if (east != NULL)
-		exits["east"] = east;
-	if (south != NULL)
-		exits["south"] = south;
-	if (west != NULL)
-		exits["west"] = west;
+    if (up != NULL)
+        exits["w"] = up;
+    if (right != NULL)
+        exits["d"] = right;
+    if (down != NULL)
+        exits["s"] = down;
+    if (left != NULL)
+        exits["a"] = left;
 }
+
 void Room::setStatus(bool b)
 {
     this->unlocked = b;
 }
+
 bool Room::getStatus()
 {
     return unlocked;
 }
+
 string Room::shortDescription()
 {
 	return description;
@@ -33,87 +35,83 @@ string Room::shortDescription()
 
 string Room::longDescription()
 {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    return "Room: " + description + "\n" + displayItem() + exitString();
 }
 
 string Room::exitString()
 {
-	string returnString = "\nexits =";
-	for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)
-		// Loop through map
-		returnString += "  " + i->first;	// access the "first" element of the pair (direction as a string)
-	return returnString;
+    string returnString = "\nExits: ";
+    for (map<string, Room*>::iterator i = exits.begin(); i != exits.end(); i++)// Loop through map
+    {
+        if(i->first.compare("w") == 0)
+            returnString += "UP  ";	// access the "first" element of the pair (direction as a string)
+        else if(i->first.compare("a") == 0)
+            returnString += "LEFT  ";
+        else if(i->first.compare("s") == 0)
+            returnString += "DOWN  ";
+        else if(i->first.compare("d") == 0)
+            returnString += "RIGHT  ";
+    }
+    return returnString;
 }
 
 Room* Room::nextRoom(string direction)
 {
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
     if (next == exits.end())
+    {
         return NULL; // if exits.end() was returned, there's no room in that direction.
+    }
 	return next->second; // If there is a room, remove the "second" (Room*)
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
 void Room::addItem(Item *inItem)
 {
-    //cout <<endl;
-    //cout << "Just added" + inItem->getLongDescription();
     itemsInRoom.push_back(*inItem);
 }
 
 string Room::displayItem()
 {
-    string tempString = "items in room = ";
-    int sizeItems = (itemsInRoom.size());
+    string tempString = "Items in Room: ";
     if (itemsInRoom.size() < 1)
     {
-        tempString = "no items in room";
+        tempString = "No keys here";
     }
     else if (itemsInRoom.size() > 0)
     {
-       int x = (0);
-        for (int n = sizeItems; n > 0; n--)
-        {
-            tempString = tempString + itemsInRoom[x].getShortDescription() + "  " ;
-            x++;
-        }
+        tempString = tempString + itemsInRoom[0].getShortDescription() + "  " ;
     }
     return tempString;
 }
 
-int Room::numberOfItems()
+int Room::getNumberOfItems()
 {
     return itemsInRoom.size();
 }
 
-int Room::isItemInRoom(string inString)
+bool Room::isItemInRoom(string inString)
 {
-    int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1)
     {
         return false;
     }
     else if (itemsInRoom.size() > 0)
     {
-       int x = (0);
-        for (int n = sizeItems; n > 0; n--)
+        if (inString.compare( itemsInRoom[0].getShortDescription()) == 0)
         {
-            // compare inString with short description
-            int tempFlag = inString.compare( itemsInRoom[x].getShortDescription());
-            if (tempFlag == 0)
-            {
-                return x;
-            }
-            x++;
+            return true;
         }
     }
-    return -1;
+    return false;
 }
+
 Item* Room::getItem()
 {
     return &itemsInRoom.at(0);
 }
+
 void Room::removeItem()
 {
-    itemsInRoom.erase(itemsInRoom.begin());
+    itemsInRoom.empty();
 }
