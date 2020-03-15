@@ -1,9 +1,8 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+
 #include "item.h"
 #include <string>
-#include "Room.h"
-
 #include <vector>
 #include <random>
 
@@ -14,14 +13,17 @@ class Enemy
 {
     private:
         string description;
-        int currentIndex;
+        unsigned int currentIndex;
         vector<string> path;
-
     public:
-        Enemy(string short_desc);
+        Enemy();
+        Enemy(string shortDesc);
+        void setDescription(string str);
+        string getDescription();
+        void setLocation(int l);
         string getLocation();
+        void addPath(vector <string> str);
+        int getPathSize();
         void move();
-        void addPath(string room);
-        string shortDescription();
 };
 #endif

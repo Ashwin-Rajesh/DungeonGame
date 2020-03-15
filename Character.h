@@ -14,11 +14,12 @@ class Character
         string description;
         vector <Item> inHand;
     public:
+        void setDescription(string desc);
+        string getDescription();
+        void addItem(Item* item);
+        Item loseItem();
         void useItem();
         int inHandSize();
         void showInHand();
-        void addItem(Item* item);
-        void setDescription(string desc);
-        string getDescription();
 };
 #endif /*CHARACTER_H_*/

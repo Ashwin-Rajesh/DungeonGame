@@ -8,6 +8,6 @@
 //    QApplication a(argc, argv);
 //    MainWindow w;
 //    ZorkUL obj;
-//    w.show();whhghrh
+//    w.show();
 //    return a.exec();
 //}

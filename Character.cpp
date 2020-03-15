@@ -30,6 +30,13 @@ void Character::showInHand()
 {
     for(unsigned int i=0; i<inHand.size(); i++)
     {
-        cout<<inHand.at(i).getShortDescription()<<"\t";
+        cout<<inHand.at(i).getDescription()<<"\t";
     }
+}
+
+Item Character::loseItem()
+{
+    Item it = inHand.at(inHandSize()-1);
+    inHand.pop_back();
+    return it;
 }

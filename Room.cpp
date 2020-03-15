@@ -28,7 +28,7 @@ bool Room::getStatus()
     return unlocked;
 }
 
-string Room::shortDescription()
+string Room::getDescription()
 {
 	return description;
 }
@@ -80,7 +80,7 @@ string Room::displayItem()
     }
     else if (itemsInRoom.size() > 0)
     {
-        tempString = tempString + itemsInRoom[0].getShortDescription() + "  " ;
+        tempString = tempString + itemsInRoom[0].getDescription() + "  " ;
     }
     return tempString;
 }
@@ -98,7 +98,7 @@ bool Room::isItemInRoom(string inString)
     }
     else if (itemsInRoom.size() > 0)
     {
-        if (inString.compare( itemsInRoom[0].getShortDescription()) == 0)
+        if (inString.compare( itemsInRoom[0].getDescription()) == 0)
         {
             return true;
         }
@@ -114,4 +114,29 @@ Item* Room::getItem()
 void Room::removeItem()
 {
     itemsInRoom.pop_back();
+}
+
+bool Room::isEnemy()
+{
+    return enemiesInRoom.empty();
+}
+
+void Room::addEnemy(Enemy enem)
+{
+    enemiesInRoom.push_back(enem);
+}
+
+void Room::removeEnemy(Enemy enem)
+{
+    for(unsigned int i=0;i<enemiesInRoom.size();i++)
+    {
+        if(enem.getDescription().compare(enemiesInRoom.at(i).getDescription()) == 0)
+        {
+            enemiesInRoom.erase(enemiesInRoom.begin() + i);
+        }
+    }
+}
+void Room::setDescription(string str)
+{
+    description = str;
 }
