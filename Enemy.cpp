@@ -4,6 +4,7 @@ Enemy::Enemy()
 {
 
 }
+
 Enemy::Enemy(string shortDesc)
 {
     this->description = shortDesc;
@@ -65,4 +66,9 @@ int Enemy::getPathSize()
 void Enemy::setLocation(int l)
 {
     currentIndex = l;
+}
+
+vector<string> Enemy::getPath()
+{
+    return path;
 }

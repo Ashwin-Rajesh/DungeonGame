@@ -90,8 +90,11 @@ void ZorkUL::createWorld()
     Enemy e1("Enemy1"); //Inner Square
     Enemy e2("Enemy2"); Enemy e3("Enemy3"); Enemy e4("Enemy4");
 
-    listofEnemies.push_back(e1);// listofEnemies.push_back(e2);
+    // listofEnemies.push_back(e2);
     //listofEnemies.push_back(e3); listofEnemies.push_back(e4);
+
+    vector<string> innerSquare;
+    vector<string> outerSquare;
 
     innerSquare.empty();
     innerSquare.push_back("G"); innerSquare.push_back("H"); innerSquare.push_back("I");
@@ -105,6 +108,7 @@ void ZorkUL::createWorld()
     outerSquare.push_back("V"); outerSquare.push_back("W"); outerSquare.push_back("X"); outerSquare.push_back("Y");
 
     e1.addPath(innerSquare);
+    listofEnemies.push_back(e1);
     enemySpawn(e1);
 //    e2.addPath(outerSquare);
 //    enemySpawn(e2);
@@ -317,7 +321,7 @@ void ZorkUL::go(string direction)
             for(unsigned int i=0; i<listofEnemies.size(); i++)
             {
                 enemyMove(listofEnemies.at(i));
-                cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
+                cout<<"Enemy:"<<listofEnemies.at(i).getLocation()<<endl;
             }
             //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
 
@@ -338,7 +342,7 @@ void ZorkUL::go(string direction)
                 for(unsigned int i=0; i<listofEnemies.size(); i++)
                 {
                     enemyMove(listofEnemies.at(i));
-                    cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
+                    cout<<"Enemy:"<<listofEnemies.at(i).getLocation()<<endl;
                 }
                 //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
 
@@ -365,7 +369,7 @@ void ZorkUL::enemySpawn(Enemy enem)
     unsigned int i = 0;
     for(i=0; i<roomList.size();i++)
     {
-        if(innerSquare.at(r).compare(roomList.at(i)->getDescription()) == 0)
+        if(enem.getPath().at(r).compare(roomList.at(i)->getDescription()) == 0)
         {
             roomList.at(i)->addEnemy(enem);
             cout<<"Enemy:"<<roomList.at(i)->getDescription()<<endl;

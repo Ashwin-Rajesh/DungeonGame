@@ -24,6 +24,7 @@ class Enemy
         string getLocation();
         void addPath(vector <string> str);
         int getPathSize();
+        vector<string> getPath();
         void move();
 };
 #endif

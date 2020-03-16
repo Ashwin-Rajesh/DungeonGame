@@ -23,8 +23,6 @@ class ZorkUL
         Character tom;
         vector<Enemy> listofEnemies;
         vector<Room*> roomList;
-        vector <string> innerSquare;
-        vector <string> outerSquare;
         void createWorld();
         bool processCommand(Command command);
         void printHelp();
@@ -38,6 +36,6 @@ class ZorkUL
         //void addEnemyList();
         void go(string direction);
         ZorkUL();
-        void play();      
+        void play();
 };
 #endif /*ZORKUL_H_*/
