@@ -19,7 +19,7 @@ class Room
         map<string, Room*> exits;
         string exitString();
         vector <Item> itemsInRoom;
-        vector <Enemy> enemiesInRoom;
+    //    vector <Enemy> enemiesInRoom;
     public:
         Room(string description);
         void setDescription(string str);
@@ -39,8 +39,8 @@ class Room
         void removeItem();
         int getNumberOfItems();
 
-        void addEnemy(Enemy enem);
+    /*    void addEnemy(Enemy enem);
         void removeEnemy(Enemy enem);
-        bool isEnemy();
+        bool isEnemy();*/
 };
 #endif

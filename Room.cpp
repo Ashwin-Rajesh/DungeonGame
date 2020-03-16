@@ -115,7 +115,7 @@ void Room::removeItem()
 {
     itemsInRoom.pop_back();
 }
-
+/*
 bool Room::isEnemy()
 {
     return enemiesInRoom.empty();
@@ -135,7 +135,7 @@ void Room::removeEnemy(Enemy enem)
             enemiesInRoom.erase(enemiesInRoom.begin() + i);
         }
     }
-}
+}*/
 void Room::setDescription(string str)
 {
     description = str;

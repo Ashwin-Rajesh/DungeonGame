@@ -36,6 +36,8 @@ void Character::showInHand()
 
 Item Character::loseItem()
 {
+    if(inHand.empty())
+        return NULL;
     Item it = inHand.at(inHandSize()-1);
     inHand.pop_back();
     return it;

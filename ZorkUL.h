@@ -21,7 +21,7 @@ class ZorkUL
         Room* spawnRoom;
         Room* exitRoom;
         Character tom;
-        vector<Enemy> listofEnemies;
+        vector<Enemy*> listofEnemies;
         vector<Room*> roomList;
         void createWorld();
         bool processCommand(Command command);
@@ -31,8 +31,9 @@ class ZorkUL
     public:
         string teleport();
         int randomRoomSelection();
-        void enemyMove(Enemy enem);
-        void enemySpawn(Enemy enem);
+        void enemyMove(Enemy *enem);
+        void enemySpawn(Enemy *enem);
+        int enemyCheck(string room);
         //void addEnemyList();
         void go(string direction);
         ZorkUL();

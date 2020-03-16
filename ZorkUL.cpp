@@ -87,7 +87,7 @@ void ZorkUL::createWorld()
     tom.setDescription("Agent Tom Reporting...");
 
     //ENEMIES
-    Enemy e1("Enemy1"); //Inner Square
+    Enemy *e1 = new Enemy("Enemy1"); //Inner Square
     Enemy e2("Enemy2"); Enemy e3("Enemy3"); Enemy e4("Enemy4");
 
     // listofEnemies.push_back(e2);
@@ -96,18 +96,16 @@ void ZorkUL::createWorld()
     vector<string> innerSquare;
     vector<string> outerSquare;
 
-    innerSquare.empty();
     innerSquare.push_back("G"); innerSquare.push_back("H"); innerSquare.push_back("I");
     innerSquare.push_back("L"); innerSquare.push_back("N"); innerSquare.push_back("Q");
     innerSquare.push_back("R"); innerSquare.push_back("S");
 
-    outerSquare.empty();
     outerSquare.push_back("A"); outerSquare.push_back("B"); outerSquare.push_back("C"); outerSquare.push_back("D");
     outerSquare.push_back("E"); outerSquare.push_back("F"); outerSquare.push_back("J"); outerSquare.push_back("K");
     outerSquare.push_back("O"); outerSquare.push_back("P"); outerSquare.push_back("T"); outerSquare.push_back("U");
     outerSquare.push_back("V"); outerSquare.push_back("W"); outerSquare.push_back("X"); outerSquare.push_back("Y");
 
-    e1.addPath(innerSquare);
+    e1->addPath(innerSquare);
     listofEnemies.push_back(e1);
     enemySpawn(e1);
 //    e2.addPath(outerSquare);
@@ -147,7 +145,7 @@ void ZorkUL::createWorld()
 
 void ZorkUL::play()
 {
-    cout<<"\n\nType info for help"<<endl;
+//    cout<<"\n\nType info for help"<<endl;
     cout<<tom.getDescription()<<currentRoom->longDescription()<<endl;
 
 	bool finished = false;
@@ -321,11 +319,11 @@ void ZorkUL::go(string direction)
             for(unsigned int i=0; i<listofEnemies.size(); i++)
             {
                 enemyMove(listofEnemies.at(i));
-                cout<<"Enemy:"<<listofEnemies.at(i).getLocation()<<endl;
+                cout<<"Enemy:"<<listofEnemies.at(i)->getLocation()<<endl;
             }
             //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
 
-            if(!currentRoom->isEnemy())//has enemies
+            if(enemyCheck(currentRoom->getDescription()))//has enemies
             {
                 teleport();
                 //drop the key if has any
@@ -342,11 +340,11 @@ void ZorkUL::go(string direction)
                 for(unsigned int i=0; i<listofEnemies.size(); i++)
                 {
                     enemyMove(listofEnemies.at(i));
-                    cout<<"Enemy:"<<listofEnemies.at(i).getLocation()<<endl;
+                    cout<<"Enemy:"<<listofEnemies.at(i)->getLocation()<<endl;
                 }
                 //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
 
-                if(!currentRoom->isEnemy())//has enemies
+                if(enemyCheck(currentRoom->getDescription()))//has enemies
                 {
                     teleport();
                     //drop the key if has any
@@ -362,12 +360,12 @@ void ZorkUL::go(string direction)
     }
 }
 
-void ZorkUL::enemySpawn(Enemy enem)
+void ZorkUL::enemySpawn(Enemy *enem)
 {
     srand (time(NULL));
-    int r = rand() % enem.getPathSize();
+    int r = rand() % enem->getPathSize();
     unsigned int i = 0;
-    for(i=0; i<roomList.size();i++)
+    /*for(i=0; i<roomList.size();i++)
     {
         if(enem.getPath().at(r).compare(roomList.at(i)->getDescription()) == 0)
         {
@@ -375,25 +373,38 @@ void ZorkUL::enemySpawn(Enemy enem)
             cout<<"Enemy:"<<roomList.at(i)->getDescription()<<endl;
             continue;
         }
-    }
-    enem.setLocation(r);
-    cout<<r<<endl;
+    }*/
+    enem->setLocation(r);
+    //cout<<r<<endl;
 }
 
-void ZorkUL::enemyMove(Enemy enem)
+int ZorkUL::enemyCheck(string room)
 {
-    string curInd = enem.getLocation();
+    int temp = 0;
+    for(int i = 0; i < listofEnemies.size(); i++)
+    {
+        if(listofEnemies.at(i)->getLocation().compare(room) == 0)
+        {
+            temp++;
+        }
+    }
+    return temp;
+}
+
+void ZorkUL::enemyMove(Enemy *enem)
+{
+    string curInd = enem->getLocation();
     string nxtInd = " ";
-    for(unsigned int i=0; i<roomList.size();i++)
+    /*for(unsigned int i=0; i<roomList.size();i++)
     {
         if(roomList.at(i)->getDescription().compare(curInd) == 0)
         {
             roomList.at(i)->removeEnemy(enem);
             continue;
         }
-    }
-    enem.move();
-    nxtInd = enem.getLocation();
+    }*/
+    enem->move();
+    /*nxtInd = enem.getLocation();
     for(unsigned int i=0; i<roomList.size();i++)
     {
         if(roomList.at(i)->getDescription().compare(nxtInd) == 0)
@@ -402,5 +413,5 @@ void ZorkUL::enemyMove(Enemy enem)
             cout<<"Enemy:"<<roomList.at(i)->getDescription()<<endl;
             continue;
         }
-    }
+    }*/
 }
