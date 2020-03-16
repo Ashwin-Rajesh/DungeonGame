@@ -18,11 +18,11 @@ string Command::getSecondWord()
 
 bool Command::isUnknown()
 {
-	return (commandWord.empty());
+    return (commandWord.empty());
 }
 
 bool Command::hasSecondWord()
 {
-	return (!secondWord.empty());
+    return (!secondWord.empty());
 }
 

@@ -7,7 +7,7 @@ void Character::setDescription(string desc)
 
 void Character::addItem(Item *item)
 {
-    inHand.push_back(*item);
+    inHand.push_back(item);
 }
 
 string Character::getDescription()
@@ -30,15 +30,37 @@ void Character::showInHand()
 {
     for(unsigned int i=0; i<inHand.size(); i++)
     {
-        cout<<inHand.at(i).getDescription()<<"\t";
+        cout<<"Key: "<<i<<"\t";
     }
 }
 
-Item Character::loseItem()
+Item* Character::loseItem()
 {
     if(inHand.empty())
+    {
         return NULL;
-    Item it = inHand.at(inHandSize()-1);
+    }
+    Item* it = inHand.at(inHandSize()-1);
     inHand.pop_back();
     return it;
+}
+
+void Character::setHealth(int h)
+{
+    health = h;
+}
+
+int Character::getHealth()
+{
+    return health;
+}
+
+bool Character::getRecentlyHit()
+{
+    return recentlyHit;
+}
+
+void Character::setRecentlyHit(bool b)
+{
+    recentlyHit = b;
 }

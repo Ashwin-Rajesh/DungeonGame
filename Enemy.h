@@ -23,8 +23,8 @@ class Enemy
         void setLocation(int l);
         string getLocation();
         void addPath(vector <string> str);
+        vector <string> getPath();
         int getPathSize();
-        vector<string> getPath();
         void move();
 };
 #endif

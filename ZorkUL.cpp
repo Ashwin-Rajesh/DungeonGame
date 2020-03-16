@@ -16,11 +16,12 @@ int main()
 ZorkUL::ZorkUL()
 {
     cout<<"***Start***"<<endl;
-    cout<<"Hello Agent, you have to get to Room:Z"<<endl;
+    cout<<"Hello Agent Tom, you have to get to Room:Z"<<endl;
     cout<<"Please know that you have to find 3 keys to unlock Room:Z"<<endl;
     cout<<"And you might want to mind the enemies roaming around"<<endl;
     cout<<"You can use the map to know where the enemies are"<<endl;
-    cout<<"Good luck on your mission, Agent Tom."<<endl;
+    cout<<"Good luck on your mission."<<endl;
+    cout<<"Type info for help"<<endl<<endl;
     createWorld();
 }
 
@@ -40,6 +41,9 @@ void ZorkUL::createWorld()
     q = new Room("Q"); r = new Room("R"); s = new Room("S"); t = new Room("T");
     u = new Room("U"); v = new Room("V"); w = new Room("W"); x = new Room("x");
     y = new Room("Y"); z = new Room("Z"); z->setStatus(false); //Room Z locked
+
+    spawnRoom = new Room("!");
+    spawnRoom->setExits(NULL,a,NULL,NULL);
 
     //         (W   , D   , S   , A   )
     a->setExits(NULL, b,    f,    NULL);
@@ -78,52 +82,43 @@ void ZorkUL::createWorld()
     roomList.push_back(s); roomList.push_back(t); roomList.push_back(u);
     roomList.push_back(v); roomList.push_back(w); roomList.push_back(x);
     roomList.push_back(y); roomList.push_back(z); //rooms added to list
-
-    currentRoom = a;
-    spawnRoom = a;
     exitRoom = z;
 
     //CHARACTER
     tom.setDescription("Agent Tom Reporting...");
 
     //ENEMIES
-    Enemy *e1 = new Enemy("Enemy1"); //Inner Square
-    Enemy e2("Enemy2"); Enemy e3("Enemy3"); Enemy e4("Enemy4");
-
-    // listofEnemies.push_back(e2);
-    //listofEnemies.push_back(e3); listofEnemies.push_back(e4);
+    Enemy *e1 = new Enemy("Enemy1"); Enemy *e2 = new Enemy("Enemy2");
+    Enemy *e3 = new Enemy("Enemy1"); Enemy *e4 = new Enemy("Enemy2");
+    Enemy *e5 = new Enemy("Enemy1"); Enemy *e6 = new Enemy("Enemy2");
 
     vector<string> innerSquare;
-    vector<string> outerSquare;
-
     innerSquare.push_back("G"); innerSquare.push_back("H"); innerSquare.push_back("I");
-    innerSquare.push_back("L"); innerSquare.push_back("N"); innerSquare.push_back("Q");
-    innerSquare.push_back("R"); innerSquare.push_back("S");
+    innerSquare.push_back("N"); innerSquare.push_back("S"); innerSquare.push_back("R");
+    innerSquare.push_back("Q"); innerSquare.push_back("L");
 
+    vector<string> outerSquare;
     outerSquare.push_back("A"); outerSquare.push_back("B"); outerSquare.push_back("C"); outerSquare.push_back("D");
-    outerSquare.push_back("E"); outerSquare.push_back("F"); outerSquare.push_back("J"); outerSquare.push_back("K");
-    outerSquare.push_back("O"); outerSquare.push_back("P"); outerSquare.push_back("T"); outerSquare.push_back("U");
-    outerSquare.push_back("V"); outerSquare.push_back("W"); outerSquare.push_back("X"); outerSquare.push_back("Y");
+    outerSquare.push_back("E"); outerSquare.push_back("J"); outerSquare.push_back("O"); outerSquare.push_back("T");
+    outerSquare.push_back("Y"); outerSquare.push_back("X"); outerSquare.push_back("W"); outerSquare.push_back("V");
+    outerSquare.push_back("U"); outerSquare.push_back("P"); outerSquare.push_back("K"); outerSquare.push_back("F");
 
-    e1->addPath(innerSquare);
-    listofEnemies.push_back(e1);
-    enemySpawn(e1);
-//    e2.addPath(outerSquare);
-//    enemySpawn(e2);
-//    e3.addPath(outerSquare);
-//    enemySpawn(e3);
-//    e4.addPath(outerSquare);
-//    enemySpawn(e4);
+    srand (time(NULL));
+    e1->addPath(innerSquare); listofEnemies.push_back(e1); enemySpawn(e1);
+    e2->addPath(innerSquare); listofEnemies.push_back(e2); enemySpawn(e2);
+    e3->addPath(outerSquare); listofEnemies.push_back(e3); enemySpawn(e3);
+    e4->addPath(outerSquare); listofEnemies.push_back(e4); enemySpawn(e4);
+    e5->addPath(outerSquare); listofEnemies.push_back(e5); enemySpawn(e5);
+    e6->addPath(outerSquare); listofEnemies.push_back(e6); enemySpawn(e6);
+
 
     //ITEMS
     vector<Item> keyList;
     keyList.empty();
-    Item key1("key1");
-    Item key2("key2");
-    Item key3("key3");
-    keyList.push_back(key1);
-    keyList.push_back(key2);
-    keyList.push_back(key3);
+
+    Item key1("key1"); keyList.push_back(key1);
+    Item key2("key2"); keyList.push_back(key2);
+    Item key3("key3"); keyList.push_back(key3);
 
     bool temp = true;
     int check = 0;
@@ -145,51 +140,39 @@ void ZorkUL::createWorld()
 
 void ZorkUL::play()
 {
-//    cout<<"\n\nType info for help"<<endl;
-    cout<<tom.getDescription()<<currentRoom->longDescription()<<endl;
+    cout<<endl<<"Room: [!]"<<endl<<"Exits: "<<"RIGHT"<<endl;
+    currentRoom = spawnRoom;
 
-	bool finished = false;
-    while (!finished)
+    bool finished = false;
+    while(!finished)
     {
-		// Create pointer to command and give it a command.
-		Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
-		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
-		delete command;
-	}
+        Command* command = parser.getCommand();
+        finished = processCommand(*command);
+        delete command;
+    }
     cout<<endl;
-    cout<<"The End"<<endl;
+    cout<<"***The End***"<<endl;
 }
 
 bool ZorkUL::processCommand(Command command)
 {
-    if (command.isUnknown())
+    if(command.isUnknown())
     {
         cout<<"Invalid Input"<<endl;
-		return false;
+        return false;
     }
+
     string commandWord = command.getCommandWord();
-    if (commandWord.compare("info") == 0)
+    if(commandWord.compare("info") == 0)
     {
-		printHelp();
+        cout<<"'WASD/wasd' to navigate,\n 'map' to view the map,\n 'inventory' to know the keys in you,\n"
+              " 'take' to pick up the keys,\n 'unlock' to unlock the Room: [Z],\n 'stay' to stay where you are,\n"
+              " 'use' to use the tracker to spot the enemies,\n 'quit' to quit the game\n";
     }
-    else if (commandWord.compare("map") == 0)
+
+    else if(commandWord.compare("map") == 0)
     {
-        cout<<"[A] --- [B] --- [C] --- [D] --- [E]"<<endl;
-        cout<<" |               |               | "<<endl;
-        cout<<" |               |               | "<<endl;
-        cout<<"[F]     [G] --- [H] --- [I]     [J]"<<endl;
-        cout<<" |       |       |       |       | "<<endl;
-        cout<<" |       |       |       |       | "<<endl;
-        cout<<"[K] --- [L] --- [M] --- [N] --- [O]"<<endl;
-        cout<<" |       |       |       |       | "<<endl;
-        cout<<" |       |       |       |       | "<<endl;
-        cout<<"[P]     [Q] --- [R] --- [S]     [T]"<<endl;
-        cout<<" |               |               | "<<endl;
-        cout<<" |               |               | "<<endl;
-        cout<<"[U] --- [V] --- [W] --- [X] --- [Y] --- [Z]"<<endl;
+        map();
     }
 
     else if(commandWord.compare("inventory") == 0)
@@ -198,34 +181,33 @@ bool ZorkUL::processCommand(Command command)
         cout<<endl;
     }
 
-    else if (commandWord.compare("take") == 0)
+    else if(commandWord.compare("take") == 0)
     {
-        if (!command.hasSecondWord())
+        if(!command.hasSecondWord())
         {
             cout<<"Incomplete Input"<<endl;
         }
-        else if (command.hasSecondWord())
+        else if(command.hasSecondWord())
         {
-            if (currentRoom->getNumberOfItems() <=0 )
+            if(currentRoom->getNumberOfItems() <= 0)
             {
                 cout<<"Item is not in room"<<endl;
             }
             else
             {
-                cout<<"Item is in Room: "<<currentRoom->getDescription()<<endl;
                 cout<<"Picking up" + command.getSecondWord()<<endl;
                 tom.addItem(currentRoom->getItem());
-                tom.showInHand();
                 currentRoom->removeItem();
             }
-            cout<<currentRoom->longDescription()<<endl;
+            cout<<currentRoom->longDescription()<<currentRoom->exitString();
         }
     }
+
     else if(commandWord.compare("unlock") == 0)
     {
         if(currentRoom != roomList.at(24))
         {
-            cout<<"You have to get to Room: y"<<endl;
+            cout<<"You have to get to Room: [Y]"<<endl;
         }
         else if(currentRoom == roomList.at(24))
         {
@@ -233,7 +215,6 @@ bool ZorkUL::processCommand(Command command)
             {
                 exitRoom->setStatus(true);
                 tom.useItem();
-                //cout<<exitRoom->getStatus()<<endl;
             }
             else
             {
@@ -242,41 +223,91 @@ bool ZorkUL::processCommand(Command command)
         }
     }
 
-    else if (commandWord.compare("w") == 0 || commandWord.compare("W") == 0)
+    else if(commandWord.compare("w") == 0 || commandWord.compare("W") == 0)
     {
         go("w");
+
     }
-    else if (commandWord.compare("a") == 0 || commandWord.compare("A") == 0)
+
+    else if(commandWord.compare("a") == 0 || commandWord.compare("A") == 0)
     {
         go("a");
+
     }
-    else if (commandWord.compare("s") == 0 || commandWord.compare("S") == 0)
+
+    else if(commandWord.compare("s") == 0 || commandWord.compare("S") == 0)
     {
         go("s");
+
     }
-    else if (commandWord.compare("d") == 0 || commandWord.compare("D") == 0)
+
+    else if(commandWord.compare("d") == 0 || commandWord.compare("D") == 0)
     {
         go("d");
+
     }
 
-    else if (commandWord.compare("quit") == 0)
+    else if(commandWord.compare("stay") == 0)
     {
-		if (command.hasSecondWord())
-        {
-            cout << "Overdefined Input"<< endl;
-        }
-		else
-        {
-			return true; /**signal to quit*/
-        }
-	}
-	return false;
-}
+        playerStay();
+    }
 
-void ZorkUL::printHelp()
-{
-    cout << "Valid inputs are; " << endl;
-	parser.showCommands();
+    else if(commandWord.compare("use") == 0)
+    {
+        if(!command.hasSecondWord())
+        {
+            cout<<"Incomplete Input"<<endl;
+        }
+        else if(command.getSecondWord().compare("tracker") == 0)
+        {
+            //ENEMY
+            int ecount = 0;
+            for(unsigned int i=0; i<listofEnemies.size(); i++)
+            {
+                for(unsigned int j=0; j<roomList.size(); j++)
+                {
+                    if(roomList.at(j)->getDescription().compare(listofEnemies.at(i)->getLocation()) == 0)
+                    {
+                        ecount++;
+                        cout<<"Enemy:"<<i+1<<" is in Room: ["<<roomList.at(j)->getDescription()<<"]";
+                        if(ecount%2 == 0)
+                            cout<<endl;
+                        else
+                            cout<<"  ";
+                    }
+                }
+            }
+            cout<<endl;
+
+            //ITEM
+            int kcount = 1;
+            for(unsigned int i=0; i<roomList.size(); i++)
+            {
+                if(roomList.at(i)->isItemInRoom())
+                {
+                    cout<<"Key:"<<kcount<<" is in Room: ["<<roomList.at(i)->getDescription()<<"]"<<endl;
+                    kcount++;
+                }
+            }
+        }
+    }
+
+    else if(commandWord.compare("quit") == 0)
+    {
+        if(command.hasSecondWord())
+        {
+            cout<<"Overdefined Input"<<endl;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    else if(tom.getHealth() == 0)
+    {
+        return false;
+    }
+    return false;
 }
 
 string ZorkUL::teleport()
@@ -288,17 +319,17 @@ string ZorkUL::teleport()
         teleportRoom = roomList.at(randomRoomSelection());
         if(teleportRoom != currentRoom && teleportRoom != exitRoom)
         {
+            currentRoom->addItem(tom.loseItem());
             temp = false;
             currentRoom=teleportRoom;
         }
     }
-    return("Teleporting...\n" + tom.getDescription() + currentRoom->longDescription() + "\n");
+    return(tom.getDescription() + currentRoom->longDescription() + currentRoom->exitString());
 }
 
 int ZorkUL::randomRoomSelection()
 {
     int r = 0;
-    srand (time(NULL));
     r = rand() % 25;
     return r;
 }
@@ -315,42 +346,18 @@ void ZorkUL::go(string direction)
         if(nextRoom != exitRoom)
         {
             currentRoom = nextRoom;
-            cout<<endl<<tom.getDescription()<<currentRoom->longDescription()<<endl;
-            for(unsigned int i=0; i<listofEnemies.size(); i++)
-            {
-                enemyMove(listofEnemies.at(i));
-                cout<<"Enemy:"<<listofEnemies.at(i)->getLocation()<<endl;
-            }
-            //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
-
-            if(enemyCheck(currentRoom->getDescription()))//has enemies
-            {
-                teleport();
-                //drop the key if has any
-                Item it = tom.loseItem();
-                currentRoom->addItem(&it);
-            }
+            cout<<tom.getDescription()<<currentRoom->longDescription();
+            playerStay();
+            map();
+            cout<<currentRoom->exitString();
+            tom.setRecentlyHit(false);
         }
         else
         {
             if(exitRoom->getStatus())
             {
                 currentRoom = exitRoom;
-                cout<<tom.getDescription()<<currentRoom->longDescription()<<endl;
-                for(unsigned int i=0; i<listofEnemies.size(); i++)
-                {
-                    enemyMove(listofEnemies.at(i));
-                    cout<<"Enemy:"<<listofEnemies.at(i)->getLocation()<<endl;
-                }
-                //cout<<"Enemy:"<<listofEnemies.at(0).getLocation()<<endl;
-
-                if(enemyCheck(currentRoom->getDescription()))//has enemies
-                {
-                    teleport();
-                    //drop the key if has any
-                    Item it = tom.loseItem();
-                    currentRoom->addItem(&it);
-                }
+                cout<<tom.getDescription()<<"Room: Z reached";
             }
             else
             {
@@ -362,26 +369,14 @@ void ZorkUL::go(string direction)
 
 void ZorkUL::enemySpawn(Enemy *enem)
 {
-    srand (time(NULL));
     int r = rand() % enem->getPathSize();
-    unsigned int i = 0;
-    /*for(i=0; i<roomList.size();i++)
-    {
-        if(enem.getPath().at(r).compare(roomList.at(i)->getDescription()) == 0)
-        {
-            roomList.at(i)->addEnemy(enem);
-            cout<<"Enemy:"<<roomList.at(i)->getDescription()<<endl;
-            continue;
-        }
-    }*/
     enem->setLocation(r);
-    //cout<<r<<endl;
 }
 
 int ZorkUL::enemyCheck(string room)
 {
     int temp = 0;
-    for(int i = 0; i < listofEnemies.size(); i++)
+    for(unsigned int i = 0; i<listofEnemies.size(); i++)
     {
         if(listofEnemies.at(i)->getLocation().compare(room) == 0)
         {
@@ -395,23 +390,32 @@ void ZorkUL::enemyMove(Enemy *enem)
 {
     string curInd = enem->getLocation();
     string nxtInd = " ";
-    /*for(unsigned int i=0; i<roomList.size();i++)
-    {
-        if(roomList.at(i)->getDescription().compare(curInd) == 0)
-        {
-            roomList.at(i)->removeEnemy(enem);
-            continue;
-        }
-    }*/
     enem->move();
-    /*nxtInd = enem.getLocation();
-    for(unsigned int i=0; i<roomList.size();i++)
+}
+
+void ZorkUL::playerStay()
+{
+    for(unsigned int i=0; i<listofEnemies.size(); i++)
     {
-        if(roomList.at(i)->getDescription().compare(nxtInd) == 0)
-        {
-            roomList.at(i)->addEnemy(enem);
-            cout<<"Enemy:"<<roomList.at(i)->getDescription()<<endl;
-            continue;
-        }
-    }*/
+        enemyMove(listofEnemies.at(i));
+    }
+    if(enemyCheck(currentRoom->getDescription()) && !tom.getRecentlyHit())//has enemies
+    {
+        cout<<teleport();
+        tom.setHealth(tom.getHealth() - 1);
+        tom.setRecentlyHit(true);
+    }
+}
+void ZorkUL::map()
+{
+    cout<<endl;
+    cout<<"[!] = [A] = [B] = [C] = [D] = [E]      "<<endl;
+    cout<<"       |           |           |       "<<endl;
+    cout<<"      [F]   [G] = [H] = [I]   [J]      "<<endl;
+    cout<<"       |     |     |     |     |       "<<endl;
+    cout<<"      [K] = [L] = [M] = [N] = [O]      "<<endl;
+    cout<<"       |     |     |     |     |       "<<endl;
+    cout<<"      [P]   [Q] = [R] = [S]   [T]      "<<endl;
+    cout<<"       |           |           |       "<<endl;
+    cout<<"      [U] = [V] = [W] = [X] = [Y] = [Z]"<<endl;
 }

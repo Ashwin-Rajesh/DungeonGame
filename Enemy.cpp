@@ -1,9 +1,6 @@
 #include "Enemy.h"
+#include "time.h"
 
-Enemy::Enemy()
-{
-
-}
 
 Enemy::Enemy(string shortDesc)
 {
@@ -22,10 +19,15 @@ void Enemy::addPath(vector <string> str)
         path.push_back(str.at(i));
     }
 }
+vector <string> Enemy::getPath()
+{
+    return path;
+}
 
 void Enemy::move()
 {
-    if(rand() % 2)
+    int i = rand() % 3;
+    if(i == 2)
     {
         // Move forward in path
         if(currentIndex == (path.size() - 1))
@@ -36,9 +38,8 @@ void Enemy::move()
         {
             currentIndex++;
         }
-        //return 1;
     }
-    else
+    else if(i == 0)
     {
         // Move back in path
         if(currentIndex == 0)
@@ -49,7 +50,6 @@ void Enemy::move()
         {
             currentIndex --;
         }
-        //return 0;
     }
 }
 
@@ -66,9 +66,4 @@ int Enemy::getPathSize()
 void Enemy::setLocation(int l)
 {
     currentIndex = l;
-}
-
-vector<string> Enemy::getPath()
-{
-    return path;
 }
